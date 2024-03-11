@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch Request on Button Click</title>
+</head>
+<body>
+
+<button onclick="endpoint('play 1-1 red')">play red</button>
+<button onclick="endpoint('stop 1-1')">Stop</button>
+
+<script>
+const endpoint = (str) => {
+    const url = "http://localhost:9000/endpoint";
+    const postData = { string: str };
+    const fetchOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify(postData)
+    };
+
+    // No need to handle the response or errors
+    fetch(url, fetchOptions);
+};
+</script>
+
+</body>
+</html>
