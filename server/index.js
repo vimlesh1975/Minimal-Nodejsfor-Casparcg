@@ -8,8 +8,9 @@ const { CasparCG, AMCP, Options, } = require("casparcg-connection");
 var aa = new CasparCG("127.0.0.1", 5250);
 aa.queueMode = Options.QueueMode.SEQUENTIAL;// for server 2.07
 
+var playlist=[{filename:'amb', s3:'s3url'}, {filename:'red', s3:'s3url2'}];
+
 app.post('/endpoint', (req, res) => {
-  // console.log(req.headers.referer);
   aa.do(new AMCP.CustomCommand(req.body.string))
     .then((aa1) => {
       // console.log(aa1.response.raw);
@@ -19,6 +20,16 @@ app.post('/endpoint', (req, res) => {
     });
   res.end();
 });
+
+app.post('/playlist', (req, res) => {
+ playlist=req.body.string;
+  res.end();
+});
+
+app.get('/playlist', (req, res) => {
+ res.json({ playlist: playlist });
+});
+
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
